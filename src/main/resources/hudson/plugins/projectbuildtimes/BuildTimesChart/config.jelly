@@ -1,0 +1,29 @@
+
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <f:entry title="${%Display name}">
+    <f:textbox name="portlet.name" field="name" default="${descriptor.getDisplayName()}" />
+  </f:entry>
+  <f:entry title="${%Graph width}">
+    <f:textbox name="portlet.graphWidth" field="graphWidth" default="300" />
+  </f:entry>
+  <f:entry title="${%Graph height}">
+    <f:textbox name="portlet.graphHeight" field="graphHeight" default="220" />
+  </f:entry>
+  <f:entry title="${%Stacked}">
+    <f:checkbox name="portlet.stacked" field="graphStacked" checked="false" />
+  </f:entry>
+  <!-- This does not set the variable -->
+  <!--f:entry title="Display" field="displayStatus">
+     <f:enum>${it.description}</f:enum>
+  </f:entry-->
+  <!--<f:optionalBlock name="dynamic" title="Specify a date range">-->
+    <f:entry title="${%Number of latest days to display}">
+      <f:textbox name="dateRange" field="dateRange" value="${it.dateRange}"/>
+    </f:entry>
+  <!--</f:optionalBlock>-->
+  <!--<f:optionalBlock name="dynamic" title="Specify a time shift">-->
+    <f:entry title="Number of Minutes the date is shifted" help="/plugin/dashboard-view/help/help-configTestTrendDateshift.html">
+      <f:textbox name="dateShift" field="dateShift" value="${it.dateShift}" default="0"/>
+    </f:entry>
+  <!--</f:optionalBlock>-->
+</j:jelly>
