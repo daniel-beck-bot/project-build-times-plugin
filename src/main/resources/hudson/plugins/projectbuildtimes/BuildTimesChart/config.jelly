@@ -10,7 +10,10 @@
     <f:textbox name="portlet.graphHeight" field="graphHeight" default="220" />
   </f:entry>
   <f:entry title="${%Stacked}">
-    <f:checkbox name="portlet.stacked" field="graphStacked" checked="false" />
+    <f:checkbox name="portlet.stacked" field="stacked" default="false" />
+  </f:entry>
+  <f:entry title="${%Job Names}" >
+    <f:textbox name="portlet.jenkinsJobNames" field="jenkinsJobNames" value="${it.jenkinsJobNames}"/>
   </f:entry>
   <!-- This does not set the variable -->
   <!--f:entry title="Display" field="displayStatus">

@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.List;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -46,19 +47,39 @@ public class BuildTimesChart extends DashboardPortlet {
    private int dateRange = 365;
    private int dateShift = 0;
    private boolean stacked = false;
+   private String jenkinsJobNames = "";
+   private List<Job> jobList = getDashboard().getJobs();
 
    private List<Color> colorList = Arrays.asList(ColorPalette.RED, ColorPalette.YELLOW, ColorPalette.BLUE);
 
 
    @DataBoundConstructor
    public BuildTimesChart(String name, int graphWidth, int graphHeight,
-           String display, int dateRange, int dateShift, boolean stacked) {
+           String display, int dateRange, int dateShift, boolean stacked, String jenkinsJobNames) {
       super(name);
       this.graphWidth = graphWidth;
       this.graphHeight = graphHeight;
       this.dateRange = dateRange;
       this.dateShift = dateShift;
       this.stacked = stacked;
+      this.jenkinsJobNames = jenkinsJobNames;
+      if (!jenkinsJobNames.equals("")) {
+         overwriteJobList();
+      }
+   }
+
+   public void overwriteJobList() {
+      List<Job> finalJobList = new ArrayList<Job>();
+      String[] jobStrings = jenkinsJobNames.split(",");
+      for(String jobName : jobStrings) {
+         for(Job job: jobList){
+            if(job.getDisplayName().equals(jobName)) {
+               finalJobList.add(job);
+               break;
+            }
+         }
+      }
+      jobList = finalJobList;
    }
 
    public int getDateRange() {
@@ -81,6 +102,9 @@ public class BuildTimesChart extends DashboardPortlet {
       return stacked;
    }
 
+   public String getJenkinsJobNames() {
+      return jenkinsJobNames;
+   }
 
    /**
     * Graph of duration of tests over time.
@@ -108,7 +132,7 @@ public class BuildTimesChart extends DashboardPortlet {
       LocalDate today = new LocalDate(System.currentTimeMillis() - dateShift*6000, GregorianChronology.getInstanceUTC());
 
       // for each job, for each day, add last build of the day to summary
-      for (Job job : getDashboard().getJobs()) {
+      for (Job job : jobList) {
          // We need a custom comparator for LocalDate objects
          final Map<LocalDate, BuildTimesSummary> summaries = // new
               // HashMap<LocalDate,
