@@ -132,7 +132,7 @@ public class BuildTimesChart extends DashboardPortlet {
       LocalDate today = new LocalDate(System.currentTimeMillis() - dateShift*6000, GregorianChronology.getInstanceUTC());
 
       // for each job, for each day, add last build of the day to summary
-      for (Job job : jobList) {
+      for (Job job : getDashboard().getJobs()) {
          // We need a custom comparator for LocalDate objects
          final Map<LocalDate, BuildTimesSummary> summaries = // new
               // HashMap<LocalDate,
