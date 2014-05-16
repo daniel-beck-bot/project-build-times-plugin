@@ -3,12 +3,12 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>1.479</version><!-- which version of Jenkins is this plugin built against? -->
+    <version>1.509.4</version><!-- which version of Jenkins is this plugin built against? -->
   </parent>
 
   <groupId>org.jenkins-ci.plugins</groupId>
-  <artifactId>rightmove-project-build-times</artifactId>
-  <name>Rightmove Project Build Times</name>
+  <artifactId>project-build-times</artifactId>
+  <name>Project Build Times</name>
   <version>1.2-SNAPSHOT</version>
   <packaging>hpi</packaging>
   <url>http://wiki.jenkins-ci.org/display/JENKINS/Project+Build+Times</url>
