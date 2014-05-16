@@ -201,7 +201,7 @@ public class BuildTimesChart extends DashboardPortlet {
                     Messages.BuildStats_Count(), // range axis label
                     buildDataSet(summaryMap), // data
                     PlotOrientation.VERTICAL, // orientation
-                    false, // include legend
+                    true, // include legend
                     false, // tooltips
                     false // urls
                  );
@@ -253,7 +253,7 @@ public class BuildTimesChart extends DashboardPortlet {
                     Messages.BuildStats_Count(), // range axis label
                     buildDataSet(summaryMap), // data
                     PlotOrientation.VERTICAL, // orientation
-                    false, // include legend
+                    true, // include legend
                     false, // tooltips
                     false // urls
                  );
