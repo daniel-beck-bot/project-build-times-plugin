@@ -48,9 +48,6 @@ public class BuildTimesChart extends DashboardPortlet {
    private int dateShift = 0;
    private boolean stacked = false;
    private String jenkinsJobNames = "";
-   private List<Job> jobList = getDashboard().getJobs();
-
-   private List<Color> colorList = Arrays.asList(ColorPalette.RED, ColorPalette.YELLOW, ColorPalette.BLUE);
 
 
    @DataBoundConstructor
@@ -63,14 +60,12 @@ public class BuildTimesChart extends DashboardPortlet {
       this.dateShift = dateShift;
       this.stacked = stacked;
       this.jenkinsJobNames = jenkinsJobNames;
-      if (!jenkinsJobNames.equals("")) {
-         overwriteJobList();
-      }
    }
 
-   public void overwriteJobList() {
+   public List<Job> overwriteJobList() {
       List<Job> finalJobList = new ArrayList<Job>();
       String[] jobStrings = jenkinsJobNames.split(",");
+      List<Job> jobList = getDashboard().getJobs();
       for(String jobName : jobStrings) {
          for(Job job: jobList){
             if(job.getDisplayName().equals(jobName)) {
@@ -79,7 +74,7 @@ public class BuildTimesChart extends DashboardPortlet {
             }
          }
       }
-      jobList = finalJobList;
+      return finalJobList;
    }
 
    public int getDateRange() {
@@ -132,7 +127,13 @@ public class BuildTimesChart extends DashboardPortlet {
       LocalDate today = new LocalDate(System.currentTimeMillis() - dateShift*6000, GregorianChronology.getInstanceUTC());
 
       // for each job, for each day, add last build of the day to summary
-      for (Job job : getDashboard().getJobs()) {
+      List<Job> jobList = getDashboard().getJobs();
+      
+      if (!jenkinsJobNames.equals("")) {
+          jobList = overwriteJobList();
+      }
+      
+      for (Job job : jobList) {
          // We need a custom comparator for LocalDate objects
          final Map<LocalDate, BuildTimesSummary> summaries = // new
               // HashMap<LocalDate,
@@ -225,15 +226,6 @@ public class BuildTimesChart extends DashboardPortlet {
 
             final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
             rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-
-            int numSeries = plot.getDataset().getRowCount();
-
-            StackedAreaRenderer ar = new StackedAreaRenderer();
-            plot.setRenderer(ar);
-   
-            for(int i = 0; i<numSeries ;i++) {
-               ar.setSeriesPaint(i, colorList.get(i));
-            }
 
             return chart;
          }
