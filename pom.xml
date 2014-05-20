@@ -9,7 +9,7 @@
   <groupId>org.jenkins-ci.plugins</groupId>
   <artifactId>project-build-times</artifactId>
   <name>Project Build Times</name>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.2.1</version>
   <packaging>hpi</packaging>
   <url>http://wiki.jenkins-ci.org/display/JENKINS/Project+Build+Times</url>
 
